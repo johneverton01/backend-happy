@@ -1,0 +1,5 @@
+node_modules/**/*
+uploads/
+
+# macOS
+.DS_Store

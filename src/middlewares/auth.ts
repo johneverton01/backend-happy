@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { promisify } from "util";
-
-const jwt = require("jsonwebtoken");
+import * as jwt from "jsonwebtoken";
 
 module.exports = async(req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
@@ -13,7 +12,7 @@ module.exports = async(req: Request, res: Response, next: NextFunction) => {
     const [scheme, token] = authHeader.split(" ");
 
     try {
-        const decode = await promisify(jwt.rerify)(token, "secret");
+        const decode = await promisify(jwt.verify)(token, "secret");
 
         req.id = decode.id;
 

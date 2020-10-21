@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import Image from './Image';
+import User from './User';
 
 @Entity('orphanages')
 export default class Orphanage {
@@ -26,6 +27,10 @@ export default class Orphanage {
 
     @Column()
     open_on_weekends: boolean;
+
+    @ManyToOne(() => User, user => user.orphanage)
+    @JoinColumn({name: 'user_id'})
+    user: User;
 
     @OneToMany(() => Image, image => image.orphanage, {
         cascade: ['insert', 'update']

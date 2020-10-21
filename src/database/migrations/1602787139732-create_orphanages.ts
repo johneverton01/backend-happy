@@ -47,6 +47,25 @@ export class createOrphanages1602787139732 implements MigrationInterface {
                     name: 'open_on_weekends',
                     type: 'boolean',
                     default: false
+                },
+                {
+                    name: 'pending',
+                    type: 'boolean',
+                    default: false
+                },
+                {
+                    name: 'user_id',
+                    type: 'interger',
+                }
+            ],
+            foreignKeys: [
+                {
+                    name: 'UserOrphanage',
+                    columnNames: ['user_id'],
+                    referencedTableName: 'users',
+                    referencedColumnNames: ['id'],
+                    onUpdate:'CASCADE',
+                    onDelete:'CASCADE',
                 }
             ]
         }))

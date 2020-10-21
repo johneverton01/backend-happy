@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
-
+import Orphanage from './Orphanage';
 
 @Entity('users')
 export default class User {
@@ -18,10 +18,10 @@ export default class User {
     @Column()
     createdAt: Date;
 
-    /*  @OneToMany(() => Image, image => image.orphanage, {
-         cascade: ['insert', 'update']
-     })
-     @JoinColumn({ name: 'orphanage_id' })
-     images: Image[]; */
+    @OneToMany(() => Orphanage, Orphanage => Orphanage.id, {
+        cascade: ['insert', 'update']
+    })
+    @JoinColumn({ name: 'user_id' })
+    orphanage: Orphanage;
 
 }
