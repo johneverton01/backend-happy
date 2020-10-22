@@ -8,18 +8,16 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.post('/login', UserController.authenticate);
-routes.post('/users', UserController.create);
-routes.get('/orphanages', OrphanagesController.index);
-routes.get('/orphanages/:id', OrphanagesController.show);
-routes.use(authMiddleware);
+routes.get('/orphanages/status/:status', OrphanagesController.index);
+routes.get('/orphanages/:id', upload.array('images'), OrphanagesController.show);
 routes.post('/orphanages', upload.array('images'), OrphanagesController.create);
-routes.put('/orphanages/update/:id', upload.array('images'), OrphanagesController.update);
+routes.post('/users', UserController.create);
 routes.delete('/orphanages/delete/:id', OrphanagesController.delete);
-
+routes.use(authMiddleware);
+routes.get('/orphanages', OrphanagesController.index);
+routes.put('/orphanages/update/:id', upload.array('images'), OrphanagesController.update);
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
-
-
 
 routes.post('/logout', UserController.logout);
 
