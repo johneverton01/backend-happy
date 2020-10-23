@@ -51,6 +51,8 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 Este projeto foi desenvolvido com ❤️ por **[@John Everton](https://www.linkedin.com/in/john-everton01/)**, com o instrutor **[@Diego3g](https://github.com/diego3g)** 💜. <br>
 Se isso te ajudou, dê uma ⭐, isso vai me ajudar também! 😉
 
+<hr>
+
 <div align="center">
 
 [![Linkedin Badge](https://img.shields.io/badge/-John%20Everton-292929?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/john-everton01/)](https://www.linkedin.com/in/john-everton01/)
