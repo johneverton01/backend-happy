@@ -151,7 +151,7 @@ export default {
 
         await orphanagesRepository.save(orphanage);
 
-        return response.status(200).json(orphanageView.render(orphanage));
+        return response.status(200).json(orphanageView.renderUpdate(orphanage));
 
     },
 
