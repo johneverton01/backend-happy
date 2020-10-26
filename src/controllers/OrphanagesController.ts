@@ -40,8 +40,6 @@ export default {
             contact,
         } = request.body;
 
-        console.log(request.body)
-
         const orphanagesRepository = getRepository(Orphanage);
         const requestImages = request.files as Express.Multer.File[];
         const images = requestImages.map(image => {
@@ -98,16 +96,21 @@ export default {
             about,
             instructions,
             opening_hours,
-            open_on_weekends
+            open_on_weekends,
+            contact,
+            status,
         } = request.body;
 
         const orphanagesRepository = getRepository(Orphanage);
         const requestImages = request.files as Express.Multer.File[];
         const images = requestImages.map(image => {
-            return { path: image.filename }
-        })
+            return {
+                path: image.filename,
+             }
+        });
 
         const data = {
+            id: parseInt(id),
             name,
             latitude,
             longitude,
@@ -115,10 +118,13 @@ export default {
             instructions,
             opening_hours,
             open_on_weekends: open_on_weekends === 'true',
-            images
+            contact,
+            status: status === 'true',
         };
 
+
         const schema = Yup.object().shape({
+            id: Yup.number().required(),
             name: Yup.string().required(),
             latitude: Yup.number().required(),
             longitude: Yup.number().required(),
@@ -126,34 +132,33 @@ export default {
             instructions: Yup.string().required(),
             opening_hours: Yup.string().required(),
             open_on_weekends: Yup.boolean().required(),
+            contact: Yup.string().required(),
+            status: Yup.boolean().required(),
             images: Yup.array(
                 Yup.object().shape({
-                    path: Yup.string().required()
+                    path: Yup.string().required(),
+                    orphanage_id: Yup.number().required(),
                 })
             )
         });
+
+
         await schema.validate(data, {
             abortEarly: false
         });
 
-        const orphanage =   await getConnection().createQueryBuilder()
-        .update(Orphanage)
-        .set(data)
-        .where("id = :id", request.params)
-        .execute();
+        const orphanage =  orphanagesRepository.create(data);
 
-        return response.status(201).json(orphanage);
+        await orphanagesRepository.save(orphanage);
+
+        return response.status(200).json(orphanageView.render(orphanage));
+
     },
 
     async delete(request: Request, response: Response) {
         const {id} = request.params;
         const orphanagesRepository = getRepository(Orphanage);
-        const orphanage = await orphanagesRepository.findOneOrFail(id, {
-            relations: ['images']
-        });
-
         await orphanagesRepository.delete(id);
-
         return response.status(200).json({ message: 'Orphanage deleted'});
     },
 };

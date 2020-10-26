@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class createImages1602848902958 implements MigrationInterface {
 
@@ -21,6 +21,15 @@ export class createImages1602848902958 implements MigrationInterface {
                 {
                     name: 'orphanage_id',
                     type: 'integer'
+                }
+            ], foreignKeys: [
+                {
+                    name: 'ImageOrphanage',
+                    columnNames: ['orphanage_id'],
+                    referencedColumnNames: ['id'],
+                    referencedTableName: 'orphanages',
+                    onUpdate: 'CASCADE',
+                    onDelete: 'CASCADE'
                 }
             ]
         }));

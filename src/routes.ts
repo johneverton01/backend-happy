@@ -12,13 +12,12 @@ routes.get('/orphanages/status/:status', OrphanagesController.index);
 routes.get('/orphanages/:id', upload.array('images'), OrphanagesController.show);
 routes.post('/orphanages', upload.array('images'), OrphanagesController.create);
 routes.post('/users', UserController.create);
-routes.delete('/orphanages/delete/:id', OrphanagesController.delete);
 routes.use(authMiddleware);
 routes.get('/orphanages', OrphanagesController.index);
 routes.put('/orphanages/update/:id', upload.array('images'), OrphanagesController.update);
+routes.delete('/orphanages/delete/:id', OrphanagesController.delete);
 routes.get('/users', UserController.index);
 routes.get('/users/:id', UserController.show);
-
 routes.post('/logout', UserController.logout);
 
 export default routes;
